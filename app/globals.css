@@ -42,12 +42,15 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed; /* Prioritize speed over quality for better performance */
   }
 
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
     /* Improve rendering performance */
     transform: translateZ(0);
+    will-change: auto; /* Let browser optimize */
+    contain: layout style; /* Optimize layout calculations */
     backface-visibility: hidden;
     perspective: 1000px;
   }

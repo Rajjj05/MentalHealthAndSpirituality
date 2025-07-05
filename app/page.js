@@ -12,16 +12,22 @@ import {
   Brain,
   NotebookIcon as Lotus,
 } from "lucide-react";
-import { memo, useMemo } from "react";
+import { memo, useMemo, lazy, Suspense } from "react";
+
+// Lazy load heavy components
+const StatsSection = lazy(() => import("./components/StatsSection"));
+const TestimonialsSection = lazy(() =>
+  import("./components/TestimonialsSection")
+);
 
 const FeatureCard = memo(({ feature, index }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.1 }}
-    className="card p-8 text-center group hover:shadow-lg transition-all duration-300"
+    transition={{ duration: 0.4, delay: index * 0.05 }} // Reduced animation time
+    className="card p-8 text-center group hover:shadow-lg transition-all duration-200" // Faster transitions
   >
-    <div className="w-16 h-16 bg-gradient-to-r from-lavender-500 to-ocean-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+    <div className="w-16 h-16 bg-gradient-to-r from-lavender-500 to-ocean-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
       <feature.icon className="w-8 h-8 text-white" />
     </div>
     <h3 className="text-xl font-lora font-semibold text-slate-800 dark:text-slate-100 mb-4">
@@ -227,13 +233,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats Section - Lazy Loaded */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <Suspense
+            fallback={
+              <div className="h-32 bg-white/70 dark:bg-slate-800/70 rounded-2xl animate-pulse" />
+            }
+          >
+            <StatsSection />
+          </Suspense>
+        </div>
+      </section>
+
+      {/* Testimonials Section - Lazy Loaded */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <Suspense
+            fallback={
+              <div className="h-64 bg-white/70 dark:bg-slate-800/70 rounded-2xl animate-pulse" />
+            }
+          >
+            <TestimonialsSection />
+          </Suspense>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="card p-12 text-center max-w-4xl mx-auto bg-gradient-to-r from-lavender-500/10 to-ocean-500/10 dark:from-lavender-900/20 dark:to-ocean-900/20"
           >
@@ -248,7 +280,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/chat" className="btn-primary group" prefetch={true}>
                 Start Chatting Now
-                <MessageCircle className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform duration-300" />
+                <MessageCircle className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform duration-200" />
               </Link>
               <Link href="/about" className="btn-secondary" prefetch={true}>
                 Learn More About Us

@@ -15,7 +15,7 @@ export default function Header() {
     () => [
       { href: "/", label: "Home" },
       { href: "/chat", label: "Chat" },
-      { href: "/resources", label: "Resources" },
+      { href: "/spirituality", label: "Spirituality" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
     ],

@@ -3,6 +3,10 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { Suspense } from "react";
+import ServiceWorkerRegistration from "./components/ServiceWorkerRegistration";
+import PerformanceMonitor from "./components/PerformanceMonitor";
+import Loading from "./loading"; // Import custom loading component
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,11 +34,27 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className="font-inter bg-gradient-to-br from-lavender-50 to-sage-50 dark:from-slate-900 dark:to-slate-800 min-h-screen transition-colors duration-300">
+        <ServiceWorkerRegistration />
+        <PerformanceMonitor />
         <ThemeProvider>
           <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
+            <Suspense
+              fallback={
+                <div className="h-20 bg-white/80 dark:bg-slate-900/80" />
+              }
+            >
+              <Header />
+            </Suspense>
+            <main className="flex-grow">
+              <Suspense fallback={<Loading />}>{children}</Suspense>
+            </main>
+            <Suspense
+              fallback={
+                <div className="h-16 bg-white/80 dark:bg-slate-900/80" />
+              }
+            >
+              <Footer />
+            </Suspense>
           </div>
         </ThemeProvider>
       </body>

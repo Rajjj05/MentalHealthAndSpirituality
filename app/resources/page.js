@@ -1,12 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Search, BookOpen, Play, Heart, Brain, NotebookIcon as Lotus, Clock, Star } from "lucide-react"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  Search,
+  BookOpen,
+  Play,
+  Heart,
+  Brain,
+  NotebookIcon as Lotus,
+  Clock,
+  Star,
+} from "lucide-react";
 
 export default function ResourcesPage() {
-  const [selectedCategory, setSelectedCategory] = useState("all")
-  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const categories = [
     { id: "all", label: "All Resources", icon: BookOpen },
@@ -14,13 +23,14 @@ export default function ResourcesPage() {
     { id: "mindfulness", label: "Mindfulness", icon: Brain },
     { id: "spirituality", label: "Spirituality", icon: Lotus },
     { id: "gratitude", label: "Gratitude", icon: Star },
-  ]
+  ];
 
   const resources = [
     {
       id: 1,
       title: "Breathing Through Anxiety",
-      description: "A gentle 10-minute guided meditation to help calm anxious thoughts and center your mind.",
+      description:
+        "A gentle 10-minute guided meditation to help calm anxious thoughts and center your mind.",
       category: "anxiety",
       type: "meditation",
       duration: "10 min",
@@ -30,7 +40,8 @@ export default function ResourcesPage() {
     {
       id: 2,
       title: "Daily Gratitude Practice",
-      description: "Transform your mindset with this simple yet powerful gratitude exercise for daily well-being.",
+      description:
+        "Transform your mindset with this simple yet powerful gratitude exercise for daily well-being.",
       category: "gratitude",
       type: "exercise",
       duration: "5 min",
@@ -40,7 +51,8 @@ export default function ResourcesPage() {
     {
       id: 3,
       title: "Understanding Mindful Awareness",
-      description: "Learn the foundations of mindfulness and how to integrate awareness into your daily life.",
+      description:
+        "Learn the foundations of mindfulness and how to integrate awareness into your daily life.",
       category: "mindfulness",
       type: "article",
       duration: "8 min read",
@@ -50,7 +62,8 @@ export default function ResourcesPage() {
     {
       id: 4,
       title: "Connecting with Your Inner Wisdom",
-      description: "Explore spiritual practices that help you tap into your intuition and inner guidance.",
+      description:
+        "Explore spiritual practices that help you tap into your intuition and inner guidance.",
       category: "spirituality",
       type: "meditation",
       duration: "15 min",
@@ -60,7 +73,8 @@ export default function ResourcesPage() {
     {
       id: 5,
       title: "Body Scan for Relaxation",
-      description: "Release tension and stress with this comprehensive body scan meditation practice.",
+      description:
+        "Release tension and stress with this comprehensive body scan meditation practice.",
       category: "mindfulness",
       type: "meditation",
       duration: "20 min",
@@ -70,7 +84,8 @@ export default function ResourcesPage() {
     {
       id: 6,
       title: "Overcoming Worry Patterns",
-      description: "Practical strategies to break free from cycles of worry and cultivate mental peace.",
+      description:
+        "Practical strategies to break free from cycles of worry and cultivate mental peace.",
       category: "anxiety",
       type: "article",
       duration: "12 min read",
@@ -80,7 +95,8 @@ export default function ResourcesPage() {
     {
       id: 7,
       title: "Sacred Morning Ritual",
-      description: "Start your day with intention through this beautiful spiritual morning practice.",
+      description:
+        "Start your day with intention through this beautiful spiritual morning practice.",
       category: "spirituality",
       type: "exercise",
       duration: "15 min",
@@ -90,56 +106,63 @@ export default function ResourcesPage() {
     {
       id: 8,
       title: "Gratitude Letter Writing",
-      description: "Deepen your appreciation practice by writing heartfelt letters of gratitude.",
+      description:
+        "Deepen your appreciation practice by writing heartfelt letters of gratitude.",
       category: "gratitude",
       type: "exercise",
       duration: "20 min",
       rating: 4.8,
       image: "/placeholder.svg?height=200&width=300",
     },
-  ]
+  ];
 
   const filteredResources = resources.filter((resource) => {
-    const matchesCategory = selectedCategory === "all" || resource.category === selectedCategory
+    const matchesCategory =
+      selectedCategory === "all" || resource.category === selectedCategory;
     const matchesSearch =
       resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      resource.description.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchesCategory && matchesSearch
-  })
+      resource.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const getTypeIcon = (type) => {
     switch (type) {
       case "meditation":
-        return Play
+        return Play;
       case "article":
-        return BookOpen
+        return BookOpen;
       case "exercise":
-        return Heart
+        return Heart;
       default:
-        return BookOpen
+        return BookOpen;
     }
-  }
+  };
 
   const getTypeColor = (type) => {
     switch (type) {
       case "meditation":
-        return "bg-lavender-100 text-lavender-700 dark:bg-lavender-900/30 dark:text-lavender-300"
+        return "bg-lavender-100 text-lavender-700 dark:bg-lavender-900/30 dark:text-lavender-300";
       case "article":
-        return "bg-ocean-100 text-ocean-700 dark:bg-ocean-900/30 dark:text-ocean-300"
+        return "bg-ocean-100 text-ocean-700 dark:bg-ocean-900/30 dark:text-ocean-300";
       case "exercise":
-        return "bg-sage-100 text-sage-700 dark:bg-sage-900/30 dark:text-sage-300"
+        return "bg-sage-100 text-sage-700 dark:bg-sage-900/30 dark:text-sage-300";
       default:
-        return "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+        return "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lavender-50/30 to-ocean-50/30 dark:from-slate-900/30 dark:to-slate-800/30">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-gradient-to-br from-lavender-50/30 to-ocean-50/30 dark:from-slate-900/30 dark:to-slate-800/30"
+    >
       <div className="container mx-auto px-4 py-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="max-w-7xl mx-auto"
         >
           {/* Header */}
@@ -148,7 +171,8 @@ export default function ResourcesPage() {
               Wellness Resources
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-              Discover curated meditations, articles, and exercises to support your mental health and spiritual journey.
+              Discover curated meditations, articles, and exercises to support
+              your mental health and spiritual journey.
             </p>
           </div>
 
@@ -170,7 +194,7 @@ export default function ResourcesPage() {
               {/* Category Filter */}
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => {
-                  const IconComponent = category.icon
+                  const IconComponent = category.icon;
                   return (
                     <motion.button
                       key={category.id}
@@ -186,7 +210,7 @@ export default function ResourcesPage() {
                       <IconComponent className="w-4 h-4" />
                       <span className="text-sm">{category.label}</span>
                     </motion.button>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -195,7 +219,7 @@ export default function ResourcesPage() {
           {/* Resources Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredResources.map((resource, index) => {
-              const TypeIcon = getTypeIcon(resource.type)
+              const TypeIcon = getTypeIcon(resource.type);
               return (
                 <motion.div
                   key={resource.id}
@@ -205,7 +229,7 @@ export default function ResourcesPage() {
                   className="card p-0 overflow-hidden group hover:scale-105 transition-all duration-300 cursor-pointer"
                 >
                   {/* Image */}
-                  <div className="relative h-48 bg-gradient-to-br from-lavender-200 to-ocean-200 dark:from-lavender-800 to-ocean-800">
+                  <div className="relative h-48 bg-gradient-to-br from-lavender-200 to-ocean-200 dark:from-lavender-800 dark:to-ocean-800">
                     <img
                       src={resource.image || "/placeholder.svg"}
                       alt={resource.title}
@@ -213,7 +237,9 @@ export default function ResourcesPage() {
                     />
                     <div className="absolute top-4 left-4">
                       <span
-                        className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium ${getTypeColor(resource.type)}`}
+                        className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium ${getTypeColor(
+                          resource.type
+                        )}`}
                       >
                         <TypeIcon className="w-3 h-3" />
                         <span className="capitalize">{resource.type}</span>
@@ -221,7 +247,9 @@ export default function ResourcesPage() {
                     </div>
                     <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center space-x-1">
                       <Star className="w-3 h-3 text-yellow-500 fill-current" />
-                      <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{resource.rating}</span>
+                      <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                        {resource.rating}
+                      </span>
                     </div>
                   </div>
 
@@ -249,28 +277,36 @@ export default function ResourcesPage() {
                         {resource.type === "meditation"
                           ? "Start Session"
                           : resource.type === "article"
-                            ? "Read Article"
-                            : "Begin Exercise"}
+                          ? "Read Article"
+                          : "Begin Exercise"}
                       </span>
                     </motion.button>
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </div>
 
           {/* No Results */}
           {filteredResources.length === 0 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
+            >
               <div className="w-24 h-24 bg-gradient-to-r from-lavender-500/20 to-ocean-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Search className="w-12 h-12 text-lavender-500" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">No resources found</h3>
-              <p className="text-slate-600 dark:text-slate-300">Try adjusting your search terms or category filter.</p>
+              <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
+                No resources found
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300">
+                Try adjusting your search terms or category filter.
+              </p>
             </motion.div>
           )}
         </motion.div>
       </div>
-    </div>
-  )
+    </motion.div>
+  );
 }

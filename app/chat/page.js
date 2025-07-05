@@ -47,27 +47,30 @@ export default function ChatPage() {
     setInputValue("");
     setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponses = [
-        "I hear you, and I want you to know that your feelings are completely valid. It's natural to experience ups and downs in life. What specific aspect of this situation would you like to explore together?",
-        "Thank you for sharing that with me. It takes courage to open up about our inner experiences. Let's take a moment to breathe together and explore what might bring you some peace right now.",
-        "I'm here to listen without judgment. Your well-being matters, and every step you take toward understanding yourself is meaningful. What would feel most supportive for you in this moment?",
-        "That sounds like a challenging experience. Remember that healing isn't linear, and it's okay to take things one moment at a time. What practices or thoughts have brought you comfort before?",
-        "I appreciate you trusting me with your thoughts. Sometimes just expressing what we're feeling can be the first step toward finding clarity. How would you like to nurture yourself today?",
-      ];
+    // Simulate AI response - reduced delay for better UX
+    setTimeout(
+      () => {
+        const aiResponses = [
+          "I hear you, and I want you to know that your feelings are completely valid. It's natural to experience ups and downs in life. What specific aspect of this situation would you like to explore together?",
+          "Thank you for sharing that with me. It takes courage to open up about our inner experiences. Let's take a moment to breathe together and explore what might bring you some peace right now.",
+          "I'm here to listen without judgment. Your well-being matters, and every step you take toward understanding yourself is meaningful. What would feel most supportive for you in this moment?",
+          "That sounds like a challenging experience. Remember that healing isn't linear, and it's okay to take things one moment at a time. What practices or thoughts have brought you comfort before?",
+          "I appreciate you trusting me with your thoughts. Sometimes just expressing what we're feeling can be the first step toward finding clarity. How would you like to nurture yourself today?",
+        ];
 
-      const aiMessage = {
-        id: Date.now() + 1,
-        type: "ai",
-        content: aiResponses[Math.floor(Math.random() * aiResponses.length)],
-        timestamp: new Date(),
-      };
+        const aiMessage = {
+          id: Date.now() + 1,
+          type: "ai",
+          content: aiResponses[Math.floor(Math.random() * aiResponses.length)],
+          timestamp: new Date(),
+        };
 
-      setMessages((prev) => [...prev, aiMessage]);
-      setHasNewMessage(true);
-      setIsLoading(false);
-    }, 1500);
+        setMessages((prev) => [...prev, aiMessage]);
+        setHasNewMessage(true);
+        setIsLoading(false);
+      },
+      process.env.NODE_ENV === "production" ? 300 : 800
+    ); // Faster in production
   };
 
   const formatTime = (date) => {

@@ -1,8 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Mail, Phone, Send, Heart, MessageCircle, Clock, Shield } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  Send,
+  Heart,
+  MessageCircle,
+  Clock,
+  Shield,
+} from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,29 +18,32 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      setFormData({ name: "", email: "", subject: "", message: "" })
-    }, 2000)
-  }
+    // Simulate form submission - faster for production
+    setTimeout(
+      () => {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      },
+      process.env.NODE_ENV === "production" ? 500 : 1200
+    );
+  };
 
   const contactInfo = [
     {
@@ -53,25 +64,28 @@ export default function ContactPage() {
       content: "1-800-SERENITY",
       description: "Immediate help when you need it most",
     },
-  ]
+  ];
 
   const supportFeatures = [
     {
       icon: Clock,
       title: "24/7 Availability",
-      description: "Our AI companion is always here when you need support, day or night.",
+      description:
+        "Our AI companion is always here when you need support, day or night.",
     },
     {
       icon: Shield,
       title: "Complete Privacy",
-      description: "Your conversations and personal information are fully protected and confidential.",
+      description:
+        "Your conversations and personal information are fully protected and confidential.",
     },
     {
       icon: Heart,
       title: "Compassionate Care",
-      description: "Every interaction is designed with empathy and understanding at its core.",
+      description:
+        "Every interaction is designed with empathy and understanding at its core.",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-lavender-50/30 to-ocean-50/30 dark:from-slate-900/30 dark:to-slate-800/30">
@@ -84,20 +98,29 @@ export default function ContactPage() {
         >
           {/* Header */}
           <div className="text-center mb-16">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               <h1 className="text-4xl lg:text-5xl font-lora font-bold text-slate-800 dark:text-slate-100 mb-6">
                 We're Here to <span className="text-gradient">Support You</span>
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
-                Your well-being is our priority. Whether you have questions, need support, or want to share feedback,
-                we're here to listen with compassion and care.
+                Your well-being is our priority. Whether you have questions,
+                need support, or want to share feedback, we're here to listen
+                with compassion and care.
               </p>
             </motion.div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="card p-8">
                 <h2 className="text-2xl font-lora font-bold text-slate-800 dark:text-slate-100 mb-6">
                   Send Us a Message
@@ -112,9 +135,12 @@ export default function ContactPage() {
                     <div className="w-16 h-16 bg-gradient-to-r from-lavender-500 to-ocean-500 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Heart className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Thank You!</h3>
+                    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
+                      Thank You!
+                    </h3>
                     <p className="text-slate-600 dark:text-slate-300">
-                      Your message has been received. We'll get back to you with care and compassion.
+                      Your message has been received. We'll get back to you with
+                      care and compassion.
                     </p>
                   </motion.div>
                 ) : (
@@ -229,7 +255,9 @@ export default function ContactPage() {
             >
               {/* Contact Methods */}
               <div className="space-y-6">
-                <h2 className="text-2xl font-lora font-bold text-slate-800 dark:text-slate-100">Get in Touch</h2>
+                <h2 className="text-2xl font-lora font-bold text-slate-800 dark:text-slate-100">
+                  Get in Touch
+                </h2>
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={info.title}
@@ -243,9 +271,15 @@ export default function ContactPage() {
                         <info.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">{info.title}</h3>
-                        <p className="text-lavender-600 dark:text-lavender-400 font-medium mb-2">{info.content}</p>
-                        <p className="text-slate-600 dark:text-slate-300 text-sm">{info.description}</p>
+                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">
+                          {info.title}
+                        </h3>
+                        <p className="text-lavender-600 dark:text-lavender-400 font-medium mb-2">
+                          {info.content}
+                        </p>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm">
+                          {info.description}
+                        </p>
                       </div>
                     </div>
                   </motion.div>
@@ -270,7 +304,9 @@ export default function ContactPage() {
                         <feature.icon className="w-4 h-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-800 dark:text-slate-100 mb-1">{feature.title}</h4>
+                        <h4 className="font-semibold text-slate-800 dark:text-slate-100 mb-1">
+                          {feature.title}
+                        </h4>
                         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                           {feature.description}
                         </p>
@@ -287,10 +323,12 @@ export default function ContactPage() {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="card p-6 border-l-4 border-red-400 bg-red-50/50 dark:bg-red-900/20"
               >
-                <h3 className="font-semibold text-red-800 dark:text-red-300 mb-2">Crisis Support</h3>
+                <h3 className="font-semibold text-red-800 dark:text-red-300 mb-2">
+                  Crisis Support
+                </h3>
                 <p className="text-red-700 dark:text-red-400 text-sm leading-relaxed mb-3">
-                  If you're experiencing a mental health crisis or having thoughts of self-harm, please reach out for
-                  immediate help:
+                  If you're experiencing a mental health crisis or having
+                  thoughts of self-harm, please reach out for immediate help:
                 </p>
                 <div className="space-y-1 text-sm">
                   <p className="text-red-700 dark:text-red-400">
@@ -306,5 +344,5 @@ export default function ContactPage() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
